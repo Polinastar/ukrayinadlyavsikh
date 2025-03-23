@@ -1,0 +1,359 @@
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/rilowuzodu/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<header>
+    <h1>Міста України</h1>
+    <input type="text" id="search-input" placeholder="Пошук за містом..." onkeyup="filterCities()" />
+</header>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Міста України</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #search-input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cities-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+        .city-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 250px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .city-card:hover {
+            transform: scale(1.05);
+        }
+
+        .city-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .city-info {
+            padding: 15px;
+        }
+
+        .city-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .city-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+<style id="jsbin-css">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.cities-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+}
+
+.city-card {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    margin: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.city-card:hover {
+    transform: scale(1.05);
+}
+
+.city-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.city-info {
+    padding: 15px;
+}
+
+.city-name {
+    font-size: 1.5rem;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.city-description {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Міста України</h1>
+    <input type="text" id="search-input" placeholder="Пошук за містом..." onkeyup="filterCities()" />
+</header>
+
+<div class="cities-container" id="cities-container">
+    <div class="city-card">
+        <img class="city-image" src="https://portalhistoryua.com/wp-content/uploads/2024/05/majdan-nezalezhnosti-v-kyyevi-glib-albovskyj-unsplash-1024x640.jpg" alt="Київ">
+        <div class="city-info">
+            <h2 class="city-name">Київ</h2>
+            <p class="city-description">Столиця України, велике культурне та економічне серце країни. Відомий своєю історією, архітектурою та величними пам'ятками, такими як Київ-Печерська лавра та Софійський собор.</p>
+        </div>
+    </div>
+
+    <div class="city-card">
+        <img class="city-image" src="https://uamedtours.com.ua/storage/images/72176afdcb7dfd50cd51fef0f6c6dae3.jpg" alt="Львів">
+        <div class="city-info">
+            <h2 class="city-name">Львів</h2>
+            <p class="city-description">Місто з багатою історією, культурною спадщиною та архітектурою. Львів відомий своєю старовинною архітектурою, кавовими традиціями та живим культурним життям.</p>
+        </div>
+    </div>
+
+    <div class="city-card">
+        <img class="city-image" src="https://uamedtourskz.com/storage/images/0b72f48967d33b504c7b742bba050f4d.jpg" alt="Одеса">
+        <div class="city-info">
+            <h2 class="city-name">Одеса</h2>
+            <p class="city-description">Місто на чорноморському узбережжі, відоме своїми пляжами, портом та архітектурою. Одеса — це культурний центр з унікальною атмосферою, красивими вулицями та знаменитою Дерибасівською вулицею.</p>
+        </div>
+    </div>
+
+    <div class="city-card">
+        <img class="city-image" src="https://turpoisk.ua/images/blog/kharkiv/kharkiv-1.jpg" alt="Харків">
+        <div class="city-info">
+            <h2 class="city-name">Харків</h2>
+            <p class="city-description">Прекрасне індустріальне місто, велика кількість університетів та культурних закладів. Харків є важливим науковим і освітнім центром країни.</p>
+        </div>
+    </div>
+
+    <div class="city-card">
+        <img class="city-image" src="https://visitukraine.today/media/blog/previews/9Uuc09Hh93rg0y3bMKvYMdacM5j8YsPF6sgEdcVM.webp" alt="Дніпро">
+        <div class="city-info">
+            <h2 class="city-name">Дніпро</h2>
+            <p class="city-description">Місто на річці Дніпро, колишня столиця СРСР, великий промисловий і культурний центр. Відомий своєю сучасною інфраструктурою, парками та набережною.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Inside-ua</p>
+</footer>
+
+<script>
+    const cities = [
+        {
+            name: 'Київ',
+            description: 'Столиця України, велике культурне та економічне серце країни. Відомий своєю історією, архітектурою та величними пам\'ятками, такими як Київ-Печерська лавра та Софійський собор.',
+            image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Kyiv'
+        },
+        {
+            name: 'Львів',
+            description: 'Місто з багатою історією, культурною спадщиною та архітектурою. Львів відомий своєю старовинною архітектурою, кавовими традиціями та живим культурним життям.',
+            image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Lviv'
+        },
+        {
+            name: 'Одеса',
+            description: 'Місто на чорноморському узбережжі, відоме своїми пляжами, портом та архітектурою. Одеса — це культурний центр з унікальною атмосферою, красивими вулицями та знаменитою Дерибасівською вулицею.',
+            image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Odessa'
+        },
+        {
+            name: 'Харків',
+            description: 'Прекрасне індустріальне місто, велика кількість університетів та культурних закладів. Харків є важливим науковим і освітнім центром країни.',
+            image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Kharkiv'
+        },
+        {
+            name: 'Дніпро',
+            description: 'Місто на річці Дніпро, колишня столиця СРСР, великий промисловий і культурний центр. Відомий своєю сучасною інфраструктурою, парками та набережною.',
+            image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Dnipro'
+        }
+    ];
+
+    // Фільтрація міст за назвою
+    function filterCities() {
+        const searchInput = document.getElementById('search-input').value.toLowerCase();
+        const filteredCities = cities.filter(city => city.name.toLowerCase().includes(searchInput));
+        
+        const citiesContainer = document.getElementById('cities-container');
+        citiesContainer.innerHTML = '';  // Очищаємо контейнер перед оновленням
+        
+        filteredCities.forEach(city => {
+            const cityCard = document.createElement('div');
+            cityCard.classList.add('city-card');
+
+            const cityImage = document.createElement('img');
+            cityImage.classList.add('city-image');
+            cityImage.src = city.image;
+            cityImage.alt = `${city.name} Image`;
+
+            const cityInfo = document.createElement('div');
+            cityInfo.classList.add('city-info');
+
+            const cityName = document.createElement('h2');
+            cityName.classList.add('city-name');
+            cityName.textContent = city.name;
+
+            const cityDescription = document.createElement('p');
+            cityDescription.classList.add('city-description');
+            cityDescription.textContent = city.description;
+
+            cityInfo.appendChild(cityName);
+            cityInfo.appendChild(cityDescription);
+            cityCard.appendChild(cityImage);
+            cityCard.appendChild(cityInfo);
+
+            citiesContainer.appendChild(cityCard);
+        });
+    }
+</script>
+
+<script id="jsbin-javascript">
+const cities = [
+    {
+        name: 'Київ',
+        description: 'Столиця України, велике культурне та економічне серце країни.',
+        image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Kyiv'
+    },
+    {
+        name: 'Львів',
+        description: 'Місто з багатою історією, культурною спадщиною та архітектурою.',
+        image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Lviv'
+    },
+    {
+        name: 'Одеса',
+        description: 'Місто на чорноморському узбережжі, відоме своїми пляжами та портом.',
+        image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Odessa'
+    },
+    {
+        name: 'Харків',
+        description: 'Прекрасне індустріальне місто, велика кількість університетів та культурних закладів.',
+        image: 'https://via.placeholder.com/250x150/003366/ffffff?text=Kharkiv'
+    }
+];
+
+const citiesContainer = document.getElementById('cities-container');
+
+cities.forEach(city => {
+    const cityCard = document.createElement('div');
+    cityCard.classList.add('city-card');
+
+    const cityImage = document.createElement('img');
+    cityImage.classList.add('city-image');
+    cityImage.src = city.image;
+    cityImage.alt = `${city.name} Image`;
+
+    const cityInfo = document.createElement('div');
+    cityInfo.classList.add('city-info');
+
+    const cityName = document.createElement('h2');
+    cityName.classList.add('city-name');
+    cityName.textContent = city.name;
+
+    const cityDescription = document.createElement('p');
+    cityDescription.classList.add('city-description');
+    cityDescription.textContent = city.description;
+
+    cityInfo.appendChild(cityName);
+    cityInfo.appendChild(cityDescription);
+    cityCard.appendChild(cityImage);
+    cityCard.appendChild(cityInfo);
+
+    citiesContainer.appendChild(cityCard);
+});
+
+</script>
+</body>
+</html>
